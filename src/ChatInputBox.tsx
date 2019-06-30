@@ -2,9 +2,15 @@ import React from 'react';
 
 const ChatInputBox = () => {
   return (
-    <div className="ChatInputBox">
+    <form
+      className="ChatInputBox"
+      onSubmit={(e: any) => {
+        e.preventDefault();
+        console.log(e.target.elements[0].value);
+      }}
+    >
       <input className="ChatInput" placeholder="Message #general" />
-    </div>
+    </form>
   );
 };
 

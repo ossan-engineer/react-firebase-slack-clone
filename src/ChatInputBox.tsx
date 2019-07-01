@@ -1,4 +1,5 @@
 import React from 'react';
+import { db } from './firebase';
 
 const ChatInputBox = () => {
   return (
@@ -6,7 +7,14 @@ const ChatInputBox = () => {
       className="ChatInputBox"
       onSubmit={(e: any) => {
         e.preventDefault();
-        console.log(e.target.elements[0].value);
+        const value = e.target.elements[0].value;
+        db.collection('channels')
+          .doc('general')
+          .collection('messages')
+          .add({
+            text: value,
+            createdAt: new Date(),
+          });
       }}
     >
       <input className="ChatInput" placeholder="Message #general" />

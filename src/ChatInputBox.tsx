@@ -15,6 +15,7 @@ const ChatInputBox = () => {
             text: value,
             createdAt: new Date(),
           });
+        e.target.reset();
       }}
     >
       <input className="ChatInput" placeholder="Message #general" />

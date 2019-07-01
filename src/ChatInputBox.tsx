@@ -9,7 +9,7 @@ const ChatInputBox = () => {
         e.preventDefault();
         const value = e.target.elements[0].value;
         db.collection('channels')
-          .doc('lunch')
+          .doc('general')
           .collection('messages')
           .add({
             text: value,

@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { db } from './firebase';
 
-const Messages = () => {
-  const [messages, setMessages] = useState([]);
+const useCollection = (path: string, orderBy: string) => {
+  const [docs, setDocs] = useState([]);
 
   useEffect(() => {
     return db
-      .collection('channels/general/messages')
-      .orderBy('createdAt')
+      .collection(path)
+      .orderBy(orderBy)
       .onSnapshot(snapshot => {
         const docs: any = [];
         snapshot.forEach(doc => {
@@ -17,10 +17,15 @@ const Messages = () => {
           });
         });
         console.log(docs);
-        setMessages(docs);
+        setDocs(docs);
       });
   }, []);
 
+  return docs;
+};
+
+const Messages = () => {
+  const messages = useCollection('/channels/general/messages', 'createdAt');
   return (
     <div className="Messages">
       <div className="EndOfMessages">That's every message!</div>

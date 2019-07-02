@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import useCollection from './useCollection';
 
 const Nav = () => {
   const channels = useCollection('/channels');
+
   return (
     <div className="Nav">
       <div className="User">

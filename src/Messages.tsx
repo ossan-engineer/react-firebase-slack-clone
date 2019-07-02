@@ -8,6 +8,7 @@ const Messages = () => {
     db.collection('channels')
       .doc('general')
       .collection('messages')
+      .orderBy('createdAt')
       .onSnapshot(snapshot => {
         const docs: any = [];
         snapshot.forEach(doc => {

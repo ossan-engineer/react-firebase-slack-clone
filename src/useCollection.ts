@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { db } from './firebase';
 
-const useCollection = (path: string, orderBy: string) => {
+const useCollection = (path: string, orderBy: string = 'createdAt') => {
   const [docs, setDocs] = useState([]);
 
   useEffect(() => {

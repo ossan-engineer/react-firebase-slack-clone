@@ -5,19 +5,16 @@ const Nav = () => {
   const [channels, setChannels] = useState<any>([]);
 
   useEffect(() => {
-    const unsubscribe = db
-      .collection('channels')
-      .onSnapshot((snapshot: any) => {
-        const docs: any[] = [];
-        snapshot.forEach((doc: any) => {
-          docs.push({
-            ...doc.data(),
-            id: doc.id,
-          });
+    return db.collection('channels').onSnapshot((snapshot: any) => {
+      const docs: any[] = [];
+      snapshot.forEach((doc: any) => {
+        docs.push({
+          ...doc.data(),
+          id: doc.id,
         });
-        setChannels(docs);
       });
-    return unsubscribe;
+      setChannels(docs);
+    });
   }, []);
   return (
     <div className="Nav">

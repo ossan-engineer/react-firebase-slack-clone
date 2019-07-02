@@ -5,7 +5,8 @@ const Messages = () => {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    db.collection('channels/general/messages')
+    return db
+      .collection('channels/general/messages')
       .orderBy('createdAt')
       .onSnapshot(snapshot => {
         const docs: any = [];

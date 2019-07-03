@@ -16,7 +16,11 @@ const App: React.FC = () => {
   useEffect(() => {
     return firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        setUser(user);
+        setUser({
+          displayName: user.displayName,
+          photoUrl: user.photoURL,
+          uid: user.uid,
+        });
       } else {
         setUser(null);
       }
@@ -25,7 +29,7 @@ const App: React.FC = () => {
 
   return user ? (
     <div className="App">
-      <Nav />
+      <Nav user={user} />
       <Channel />
     </div>
   ) : (

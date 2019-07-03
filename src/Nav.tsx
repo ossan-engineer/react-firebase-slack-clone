@@ -1,19 +1,15 @@
 import React from 'react';
 import useCollection from './useCollection';
 
-const Nav = () => {
+const Nav = ({ user }: any) => {
   const channels = useCollection('/channels');
 
   return (
     <div className="Nav">
       <div className="User">
-        <img
-          className="UserImage"
-          alt="whatever"
-          src="https://placekitten.com/64/64"
-        />
+        <img className="UserImage" alt="whatever" src={user.photoUrl} />
         <div>
-          <div>ossan-engineer</div>
+          <div>{user.displayName}</div>
           <div>
             <button className="text-button">log out</button>
           </div>

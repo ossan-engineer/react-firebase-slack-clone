@@ -14,7 +14,7 @@ const App: React.FC = () => {
   console.log(user);
 
   useEffect(() => {
-    firebase.auth().onAuthStateChanged(user => {
+    return firebase.auth().onAuthStateChanged(user => {
       if (user) {
         setUser(user);
       } else {

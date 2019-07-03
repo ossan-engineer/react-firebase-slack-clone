@@ -3,15 +3,22 @@ import Nav from './Nav';
 import Channel from './Channel';
 import { firebase } from './firebase';
 
-const App: React.FC = () => {
-  const [user, setUser] = useState<any>(null);
-
+const Login = () => {
   const handleSignIn = async () => {
     const provider = new firebase.auth.GoogleAuthProvider();
-    const result = await firebase.auth().signInWithPopup(provider);
+    await firebase.auth().signInWithPopup(provider);
   };
 
-  console.log(user);
+  return (
+    <div className="Login">
+      <h1>Chat!</h1>
+      <button onClick={handleSignIn}>Sign in with Google</button>
+    </div>
+  );
+};
+
+const useAuth = () => {
+  const [user, setUser] = useState<any>(null);
 
   useEffect(() => {
     return firebase.auth().onAuthStateChanged(user => {
@@ -27,16 +34,19 @@ const App: React.FC = () => {
     });
   }, []);
 
+  return user;
+};
+
+const App: React.FC = () => {
+  const user = useAuth();
+
   return user ? (
     <div className="App">
       <Nav user={user} />
       <Channel />
     </div>
   ) : (
-    <div className="Login">
-      <h1>Chat!</h1>
-      <button onClick={handleSignIn}>Sign in with Google</button>
-    </div>
+    <Login />
   );
 };
 

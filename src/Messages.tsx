@@ -56,9 +56,13 @@ const Messages = () => {
         const showDay = false;
         const showAvatar = !previous || message.user.id !== previous.user.id;
         return showAvatar ? (
-          <FirstMessageFromUser message={message} showDay={showDay} />
+          <FirstMessageFromUser
+            message={message}
+            showDay={showDay}
+            key={message.id}
+          />
         ) : (
-          <div>
+          <div key={message.id}>
             <div className="Message no-avatar">
               <div className="MessageContent">{message.text}</div>
             </div>

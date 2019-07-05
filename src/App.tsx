@@ -60,7 +60,7 @@ const App: React.FC = () => {
   return user ? (
     <div className="App">
       <Nav user={user} />
-      <Channel />
+      <Channel user={user} />
     </div>
   ) : (
     <Login />

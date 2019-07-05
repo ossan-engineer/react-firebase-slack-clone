@@ -12,7 +12,7 @@ const useDoc = (path: string) => {
         id: doc.id,
       });
     });
-  }, []);
+  }, [path]);
 
   return doc;
 };

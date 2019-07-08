@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Nav from './Nav';
 import Channel from './Channel';
 import { firebase, db } from './firebase';
+import { Router, Redirect } from '@reach/router';
 
 const Login = () => {
   const [authError, setAuthError] = useState<any>(null);
@@ -60,7 +61,10 @@ const App: React.FC = () => {
   return user ? (
     <div className="App">
       <Nav user={user} />
-      <Channel user={user} />
+      <Router>
+        <Channel path="channel/:channelId" user={user} />
+        <Redirect from="/" to="channel/general" />
+      </Router>
     </div>
   ) : (
     <Login />

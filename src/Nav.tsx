@@ -2,7 +2,7 @@ import React from 'react';
 import useCollection from './useCollection';
 import { firebase } from './firebase';
 
-const Nav = ({ user }: any) => {
+const Nav = ({ user, channels }: any) => {
   const channels = useCollection('/channels');
 
   return (

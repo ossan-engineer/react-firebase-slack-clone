@@ -35,8 +35,7 @@ const FirstMessageFromUser = ({ message, showDay }: any) => {
         />
         <div className="Author">
           <div>
-            <span className="UserName">{author && author.displayName}</span>
-            {' '}
+            <span className="UserName">{author && author.displayName}</span>{' '}
             <span className="TimeStamp">3:37 PM</span>
           </div>
           <div className="MessageContent">{message.text}</div>
@@ -46,8 +45,11 @@ const FirstMessageFromUser = ({ message, showDay }: any) => {
   );
 };
 
-const Messages = () => {
-  const messages = useCollection('/channels/general/messages', 'createdAt');
+const Messages = ({ channelId }: any) => {
+  const messages = useCollection(
+    `/channels/${channelId}/messages`,
+    'createdAt',
+  );
   return (
     <div className="Messages">
       <div className="EndOfMessages">That's every message!</div>

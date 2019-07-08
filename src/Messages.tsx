@@ -36,6 +36,7 @@ const FirstMessageFromUser = ({ message, showDay }: any) => {
         <div className="Author">
           <div>
             <span className="UserName">{author && author.displayName}</span>
+            {' '}
             <span className="TimeStamp">3:37 PM</span>
           </div>
           <div className="MessageContent">{message.text}</div>

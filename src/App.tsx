@@ -62,8 +62,8 @@ const App: React.FC = () => {
     <div className="App">
       <Nav user={user} />
       <Router>
-        <Channel path="channel/:channelId" user={user} />
-        <Redirect from="/" to="channel/general" />
+        <Channel path="channels/:channelId" user={user} />
+        <Redirect from="/" to="channels/general" />
       </Router>
     </div>
   ) : (

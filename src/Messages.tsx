@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 import formatDate from 'date-fns/format';
 import jaLocale from 'date-fns/locale/ja';
 import isSameDay from 'date-fns/is_same_day';
@@ -95,7 +95,7 @@ const Messages = ({ channelId }: any) => {
     `/channels/${channelId}/messages`,
     'createdAt',
   );
-  const [scrollTop, setScrollTop] = useState(0);
+  // const [scrollTop, setScrollTop] = useState(0);
 
   return (
     <ChatScroller className="Messages">

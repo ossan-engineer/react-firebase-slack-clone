@@ -1,10 +1,11 @@
 import React from 'react';
+import formatDate from 'date-fns/format';
+import jaLocale from 'date-fns/locale/ja';
 import useCollection from './useCollection';
 import useDocWithCache from './useDocWithCache';
 
 const FirstMessageFromUser = ({ message, showDay }: any) => {
   const author = useDocWithCache(message.user.path);
-  console.log(new Date(message.createdAt.seconds * 1000));
   return (
     <div>
       {showDay && (
@@ -23,7 +24,9 @@ const FirstMessageFromUser = ({ message, showDay }: any) => {
           <div>
             <span className="UserName">{author && author.displayName}</span>{' '}
             <span className="TimeStamp">
-              {new Date(message.createdAt.seconds * 1000).toLocaleTimeString()}
+              {formatDate(message.createdAt.seconds * 1000, 'HH:mm', {
+                locale: jaLocale,
+              })}
             </span>
           </div>
           <div className="MessageContent">{message.text}</div>

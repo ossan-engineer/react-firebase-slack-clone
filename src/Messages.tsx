@@ -1,6 +1,7 @@
 import React from 'react';
 import formatDate from 'date-fns/format';
 import jaLocale from 'date-fns/locale/ja';
+import isSameDay from 'date-fns/is_same_day';
 import useCollection from './useCollection';
 import useDocWithCache from './useDocWithCache';
 
@@ -20,6 +21,19 @@ const shouldShowAvatar = (previous: any, message: any) => {
   return hasBeenAWhile;
 };
 
+const shouldShowDay = (previous: any, message: any) => {
+  const isFirst = !previous;
+  if (isFirst) {
+    return true;
+  }
+
+  const isNewDay = !isSameDay(
+    previous.createdAt.seconds * 1000,
+    message.createdAt.seconds * 1000,
+  );
+  return isNewDay;
+};
+
 const FirstMessageFromUser = ({ message, showDay }: any) => {
   const author = useDocWithCache(message.user.path);
   return (
@@ -27,7 +41,9 @@ const FirstMessageFromUser = ({ message, showDay }: any) => {
       {showDay && (
         <div className="Day">
           <div className="DayLine" />
-          <div className="DayText">12/6/2018</div>
+          <div className="DayText">
+            {new Date(message.createdAt.seconds * 1000).toLocaleDateString()}
+          </div>
           <div className="DayLine" />
         </div>
       )}
@@ -63,7 +79,7 @@ const Messages = ({ channelId }: any) => {
 
       {messages.map((message: any, index: number) => {
         const previous: any = messages[index - 1];
-        const showDay = false;
+        const showDay = shouldShowDay(previous, message);
         const showAvatar = shouldShowAvatar(previous, message);
         return showAvatar ? (
           <FirstMessageFromUser

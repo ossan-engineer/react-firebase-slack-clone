@@ -24,7 +24,7 @@ const useDoc = (path: string) => {
       setDoc(user);
       cache[path] = user;
     });
-  }, [path]);
+  }, [path, doc]);
 
   return doc;
 };

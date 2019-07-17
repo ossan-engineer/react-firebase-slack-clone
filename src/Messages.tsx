@@ -6,20 +6,25 @@ import useCollection from './useCollection';
 import useDocWithCache from './useDocWithCache';
 
 const ChatScroller = (props: any) => {
-  const scrollerRef = useRef<HTMLInputElement>(null);
-  useChatScrollManager(scrollerRef);
-  return <div {...props} ref={scrollerRef} />;
-};
+  const ref = useRef<HTMLInputElement>(null);
+  const shouldScrollRef = useRef(true);
 
-const useChatScrollManager = (ref: any) => {
-  const [shouldScroll, setShouldScroll] = useState(false);
+  const handleScroll = () => {
+    const node: any = ref.current;
+    const { scrollTop, clientHeight, scrollHeight } = node;
+    const atBottom = scrollHeight === scrollTop + clientHeight;
+    shouldScrollRef.current = atBottom;
+  };
 
   useEffect(() => {
-    if (shouldScroll) {
+    if (shouldScrollRef.current) {
       const node = ref.current;
-      node.scrollTop = node.scrollHeight;
+      if (node) {
+        node.scrollTop = node.scrollHeight;
+      }
     }
   });
+  return <div {...props} ref={ref} onScroll={handleScroll} />;
 };
 
 const shouldShowAvatar = (previous: any, message: any) => {

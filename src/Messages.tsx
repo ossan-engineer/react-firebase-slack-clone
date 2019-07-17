@@ -4,6 +4,7 @@ import useDocWithCache from './useDocWithCache';
 
 const FirstMessageFromUser = ({ message, showDay }: any) => {
   const author = useDocWithCache(message.user.path);
+  console.log(new Date(message.createdAt.seconds * 1000));
   return (
     <div>
       {showDay && (
@@ -21,7 +22,9 @@ const FirstMessageFromUser = ({ message, showDay }: any) => {
         <div className="Author">
           <div>
             <span className="UserName">{author && author.displayName}</span>{' '}
-            <span className="TimeStamp">3:37 PM</span>
+            <span className="TimeStamp">
+              {new Date(message.createdAt.seconds * 1000).toLocaleTimeString()}
+            </span>
           </div>
           <div className="MessageContent">{message.text}</div>
         </div>

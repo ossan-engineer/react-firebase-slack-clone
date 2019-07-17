@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import formatDate from 'date-fns/format';
 import jaLocale from 'date-fns/locale/ja';
 import isSameDay from 'date-fns/is_same_day';
@@ -73,8 +73,10 @@ const Messages = ({ channelId }: any) => {
     `/channels/${channelId}/messages`,
     'createdAt',
   );
+  const scrollerRef = useRef<HTMLInputElement>(null);
+
   return (
-    <div className="Messages">
+    <div className="Messages" ref={scrollerRef}>
       <div className="EndOfMessages">That's every message!</div>
 
       {messages.map((message: any, index: number) => {

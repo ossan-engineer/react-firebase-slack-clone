@@ -6,12 +6,14 @@ const useDoc = (path: string) => {
   const [doc, setDoc] = useState<any>(null);
 
   useEffect(() => {
-    return db.doc(path).onSnapshot(doc => {
-      setDoc({
-        ...doc.data(),
-        id: doc.id,
+    db.doc(path)
+      .get()
+      .then(doc => {
+        setDoc({
+          ...doc.data(),
+          id: doc.id,
+        });
       });
-    });
   }, [path]);
 
   return doc;

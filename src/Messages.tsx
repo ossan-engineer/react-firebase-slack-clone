@@ -1,14 +1,24 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import formatDate from 'date-fns/format';
 import jaLocale from 'date-fns/locale/ja';
 import isSameDay from 'date-fns/is_same_day';
 import useCollection from './useCollection';
 import useDocWithCache from './useDocWithCache';
 
+const ChatScroller = (props: any) => {
+  const scrollerRef = useRef<HTMLInputElement>(null);
+  useChatScrollManager(scrollerRef);
+  return <div {...props} ref={scrollerRef} />;
+};
+
 const useChatScrollManager = (ref: any) => {
+  const [shouldScroll, setShouldScroll] = useState(false);
+
   useEffect(() => {
-    const node = ref.current;
-    node.scrollTop = node.scrollHeight;
+    if (shouldScroll) {
+      const node = ref.current;
+      node.scrollTop = node.scrollHeight;
+    }
   });
 };
 
@@ -80,12 +90,10 @@ const Messages = ({ channelId }: any) => {
     `/channels/${channelId}/messages`,
     'createdAt',
   );
-  const scrollerRef = useRef<HTMLInputElement>(null);
-
-  useChatScrollManager(scrollerRef);
+  const [scrollTop, setScrollTop] = useState(0);
 
   return (
-    <div className="Messages" ref={scrollerRef}>
+    <ChatScroller className="Messages">
       <div className="EndOfMessages">That's every message!</div>
 
       {messages.map((message: any, index: number) => {
@@ -106,7 +114,7 @@ const Messages = ({ channelId }: any) => {
           </div>
         );
       })}
-    </div>
+    </ChatScroller>
   );
 };
 

@@ -1,36 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import useCollection from './useCollection';
-import { db } from './firebase';
-
-const cache: any = {};
-const pendingCache: any = {};
-
-const useDoc = (path: string) => {
-  const [doc, setDoc] = useState<any>(cache[path]);
-
-  useEffect(() => {
-    if (doc) {
-      return;
-    }
-
-    const pending = pendingCache[path];
-    const promise = pending || (pendingCache[path] = db.doc(path).get());
-
-    promise.then((doc: any) => {
-      const user = {
-        ...doc.data(),
-        id: doc.id,
-      };
-      setDoc(user);
-      cache[path] = user;
-    });
-  }, [path, doc]);
-
-  return doc;
-};
+import useDocWithCache from './useDocWithCache';
 
 const FirstMessageFromUser = ({ message, showDay }: any) => {
-  const author = useDoc(message.user.path);
+  const author = useDocWithCache(message.user.path);
   return (
     <div>
       {showDay && (

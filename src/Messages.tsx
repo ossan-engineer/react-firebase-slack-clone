@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import formatDate from 'date-fns/format';
 import jaLocale from 'date-fns/locale/ja';
 import isSameDay from 'date-fns/is_same_day';
@@ -74,6 +74,11 @@ const Messages = ({ channelId }: any) => {
     'createdAt',
   );
   const scrollerRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const node: any = scrollerRef.current;
+    node.scrollTop = node.scrollHeight;
+  });
 
   return (
     <div className="Messages" ref={scrollerRef}>

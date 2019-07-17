@@ -1,12 +1,19 @@
 import React from 'react';
+import useDoc from './useDoc';
 
-const ChannelInfo = () => {
+interface Props {
+  channelId: string;
+}
+
+const ChannelInfo = ({ channelId }: Props) => {
+  const channel = useDoc(`channels/${channelId}`);
   return (
     <div className="ChannelInfo">
       <div className="Topic">
-        Topic: <input className="TopicInput" value="Awesome stuff" readOnly />
+        Topic:{' '}
+        <input className="TopicInput" defaultValue={channel && channel.topic} />
       </div>
-      <div className="ChannelName">#general</div>
+      <div className="ChannelName">#{channelId}</div>
     </div>
   );
 };

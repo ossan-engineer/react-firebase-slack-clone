@@ -5,6 +5,13 @@ import isSameDay from 'date-fns/is_same_day';
 import useCollection from './useCollection';
 import useDocWithCache from './useDocWithCache';
 
+const useChatScrollManager = (ref: any) => {
+  useEffect(() => {
+    const node = ref.current;
+    node.scrollTop = node.scrollHeight;
+  });
+};
+
 const shouldShowAvatar = (previous: any, message: any) => {
   const isFirst = !previous;
   if (isFirst) {
@@ -75,10 +82,7 @@ const Messages = ({ channelId }: any) => {
   );
   const scrollerRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    const node: any = scrollerRef.current;
-    node.scrollTop = node.scrollHeight;
-  });
+  useChatScrollManager(scrollerRef);
 
   return (
     <div className="Messages" ref={scrollerRef}>

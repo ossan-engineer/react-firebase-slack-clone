@@ -4,6 +4,22 @@ import jaLocale from 'date-fns/locale/ja';
 import useCollection from './useCollection';
 import useDocWithCache from './useDocWithCache';
 
+const shouldShowAvatar = (previous: any, message: any) => {
+  const isFirst = !previous;
+  if (isFirst) {
+    return true;
+  }
+
+  const differentUser = message.user.id !== previous.user.id;
+  if (differentUser) {
+    return true;
+  }
+
+  const hasBeenAWhile =
+    message.createdAt.seconds - previous.createdAt.seconds > 60;
+  return hasBeenAWhile;
+};
+
 const FirstMessageFromUser = ({ message, showDay }: any) => {
   const author = useDocWithCache(message.user.path);
   return (
@@ -48,7 +64,7 @@ const Messages = ({ channelId }: any) => {
       {messages.map((message: any, index: number) => {
         const previous: any = messages[index - 1];
         const showDay = false;
-        const showAvatar = !previous || message.user.id !== previous.user.id;
+        const showAvatar = shouldShowAvatar(previous, message);
         return showAvatar ? (
           <FirstMessageFromUser
             message={message}

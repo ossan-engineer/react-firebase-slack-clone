@@ -1,6 +1,13 @@
 import React from 'react';
+import useCollection from './useCollection';
 
-const Members = () => {
+interface Props {
+  channelId: string;
+}
+
+const Members = ({ channelId }: Props) => {
+  const members = useCollection('users');
+  console.log({ members });
   return (
     <div className="Members">
       <div>

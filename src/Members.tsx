@@ -1,13 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import useCollection from './useCollection';
+import { db } from './firebase';
 
 interface Props {
   channelId: string;
 }
 
 const Members = ({ channelId }: Props) => {
-  const members = useCollection('users');
-  console.log({ members });
+  useEffect(() => {
+    db.collection('users')
+      .where(`channels.${channelId}`, '==', true)
+      .onSnapshot(snapshot => {
+        snapshot.forEach(doc => {
+          console.log(doc.data());
+        });
+      });
+  }, [channelId]);
   return (
     <div className="Members">
       <div>

@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import useCollection from './useCollection';
 import { db } from './firebase';
 
 interface Props {

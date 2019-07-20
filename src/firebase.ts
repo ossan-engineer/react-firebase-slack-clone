@@ -27,15 +27,30 @@ const setupPresence = (user: any) => {
     state: 'online',
     lastChanged: firebase.database.ServerValue.TIMESTAMP,
   };
+  const isOfflineForFirestore = {
+    state: 'offline',
+    lastChanged: firebase.firestore.FieldValue.serverTimestamp(),
+  };
+  const isOnlineForFirestore = {
+    state: 'online',
+    lastChanged: firebase.firestore.FieldValue.serverTimestamp(),
+  };
   const rtdbRef = rtdb.ref(`/status/${user.uid}`);
+  const userDoc = db.doc(`/users/${user.uid}`);
 
   rtdb.ref('.info/connected').on('value', async (snapshot: any) => {
     if (snapshot.val() === false) {
+      userDoc.update({
+        status: isOfflineForFirestore,
+      });
       return;
     }
 
     await rtdbRef.onDisconnect().set(isOfflineForRTDB);
     rtdbRef.set(isOnlineForRTDB);
+    userDoc.update({
+      status: isOnlineForFirestore,
+    });
   });
 };
 

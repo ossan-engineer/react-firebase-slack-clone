@@ -27,7 +27,9 @@ const Members = ({ channelId }: Props) => {
       <div>
         {members.sort(sortByName).map((member: any) => (
           <div className="Member" key={member.id}>
-            <div className={`MemberStatus ${member.status.state}`} />
+            <div
+              className={`MemberStatus ${member.status && member.status.state}`}
+            />
             {member.displayName}
           </div>
         ))}

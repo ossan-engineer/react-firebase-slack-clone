@@ -4,7 +4,7 @@ This is a Slack colne application using React and Firebase.
 
 ## Demo
 
-https://ossan-engineer.github.io/restaurant-search/
+https://react-firebase-slack-clone.web.app/
 
 ## Reference
 

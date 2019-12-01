@@ -1,6 +1,6 @@
 # React Firebase Slack Clone
 
-This is a Slack colne application using React and Firebase.
+This is a Slack clone application using React and Firebase.
 
 ## Demo
 
